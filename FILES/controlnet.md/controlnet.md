@@ -4,9 +4,8 @@ Latent Diffusion Models整体框架如图，首先需要训练好一个自编码
 **CLIP的作用，就是将文本转换为语言信息并使其与图像信息在UNet中采用Attention更好的偶合到一起，成为了***文本和图像***之间的连接通道。**
 # ControlNet
 ## ControlNet本体
-![Img](./FILES/controlnet.md/img-20240427190400.png)
 
-![Img](./FILES/controlnet.md/img-20240427190652.png)
+![Img](./FILES/controlnet.md/img-20240429225314.png)
 
  ControlNet向神经网络块注入了额外的条件。假设F（·；Θ）是这样的训练好的神经块，参数为Θ，它将输入特征图x转换为另一个特征图y。为了将ControlNet添加到预训练的神经块中，需锁定原始块的参数Θ，同时将块克隆到可训练的副本中，该副本具有参数Θ_c（如图2b）。可训练的副本接受外部条件向量c作为输入。当将这种结构应用于像Stable Diffusion这样的大型模型时，锁定参数可以保留使用数十亿张图像训练的生产就绪模型，而可训练的副本可以重用这种大规模预训练模型，以建立一个深、稳健且强大的主干网络来处理各种输入条件。  
 
