@@ -1,7 +1,7 @@
 ## latent diffusion
 Latent Diffusion Models整体框架如图，首先需要训练好一个自编码模型（AutoEncoder，包括一个编码器和一个解码器）。这样一来，我们就可以利用编码器对图片进行压缩，然后在潜在表示空间上做diffusion操作，最后我们再用解码器恢复到原始像素空间即可，论文将这个方法称之为感知压缩（Perceptual Compression）。将高维特征压缩到低维，然后在低维空间上进行操作的方法具有普适性，可以很容易推广到文本、音频、视频等领域。
 ## Clip
-**CLIP的作用，就是将文本转换为语言信息并使其与图像信息在UNet中采用Attention更好的偶合到一起，成为了***文本和图像***之间的连接通道。**
+CLIP的作用，就是将文本转换为语言信息并使其与图像信息在UNet中采用Cross Attention更好的偶合到一起，成为了***文本和图像***之间的连接通道。
 # ControlNet
 ## ControlNet本体
 
@@ -24,3 +24,15 @@ yc是ControlNet块输出。在第一个训练步骤中，由于零卷积层的�
 
 训练过程需要将一半的ct置为空，有利于没有prompt的时候，更好的挖掘控制条件中的信息（例如边缘，深度等）
 
+## method 1
+通过软件生成隐藏图片的条件图。然后把条件图和隐藏图片都隐藏进去，最后提取，若有噪声，。。。。
+
+# CRoSS: Diffusion Model Makes Controllable, Robust and Secure Image Steganography
+条件扩散模型，基于DDIM Inversion，图像与潜在噪声之间存在可逆关系。
+
+![Img](./FILES/controlnet.md/img-20240504104941.png)
+
+![Img](./FILES/controlnet.md/img-20240504105001.png)
+
+![Img](./FILES/controlnet.md/img-20240504110127.png)
+它只靠扩散模型来隐藏和提取秘密图像，所以保真度（PSNR）在不加噪声时就很低，加了一些噪声之后，同样是将宿主图形转化为噪声再生成秘密图像，所以保真度变化不大。
