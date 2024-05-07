@@ -27,20 +27,30 @@ yc是ControlNet块输出。在第一个训练步骤中，由于零卷积层的�
 
 
 # CRoSS: Diffusion Model Makes Controllable, Robust and Secure Image Steganography
-条件扩散模型，基于DDIM Inversion，图像与潜在噪声之间存在可逆关系。
+条件扩散模型，基于DDIM Inversion，图像与潜在噪声之间存在可逆关系。为真实图像X找到一个对应的空间表示Z。
 
 ![Img](./FILES/controlnet.md/img-20240504104941.png)
 
 ![Img](./FILES/controlnet.md/img-20240504105001.png)
 
 ![Img](./FILES/controlnet.md/img-20240504110127.png)
+
 宿主图像是随机的，所以他只测了秘密图像的PSNR。
 它只靠扩散模型来隐藏和提取秘密图像，所以保真度（PSNR）在不加噪声时就很低，加了一些噪声之后，同样是将宿主图形转化为噪声再生成秘密图像，所以保真度变化不大。
 
-## 此方法的缺点
+## CRoSS缺点
 对于不好用文本和边缘图等表示的秘密图像，这个方法不可行，恢复度极差。
 
-## 思路1
-首先复现CRoSS，然后选择更好的模型提高保真度
-## 思路2
-思考如何将现在的方法与其融合
+
+# Gaussian Shading: Provable Performance-Lossless Image Watermarking for Diffusion Models
+
+![Img](./FILES/controlnet.md/img-20240507174307.png)
+采样过程中，秘密信息嵌入到潜在表示Zt中，接着SD的生成过程
+将秘密信息copy成很多份
+精度高、抗噪
+## Question
+同样采用DDIM Inversion，为何两者精度差距这么大
+
+## 思路
+1、复现这两个网络，然后选择更好的模型提高秘密图像保真度
+2、DDIM Inversion、ControlNet、SD等如何融合
